@@ -5,7 +5,7 @@ function App() {
   return (
     <>
       <h1>Hello World</h1>
-      <div className="flags">
+      <div className="flex h-12 mt-5">
         <US /> <RU /> <CN /> <JP /> <GB />
       </div>
     </>
