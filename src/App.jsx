@@ -1,14 +1,12 @@
-import "./App.css";
-import { US, RU, CN, JP, GB } from "country-flag-icons/react/3x2";
+import { Header } from "./components/header/header";
+import { Game } from "./components/game/game";
 
 function App() {
   return (
-    <>
-      <h1>Hello World</h1>
-      <div className="flex h-12 mt-5">
-        <US /> <RU /> <CN /> <JP /> <GB />
-      </div>
-    </>
+    <div className="w-full flex justify-center flex-col">
+      <Header />
+      <Game className="mx-auto mt-20" />
+    </div>
   );
 }
 export default App;
