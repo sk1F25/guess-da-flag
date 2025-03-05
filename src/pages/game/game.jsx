@@ -1,55 +1,25 @@
-import { useEffect, useState } from "react";
-import { supabase } from "../../api/supabase";
 import clsx from "clsx";
+import { useGame } from "../../hooks/useGame";
 
 export function Game({ className }) {
-  const [question, setQuestion] = useState({
-    country: "",
-    countryUrl: "",
-    options: [],
-  });
-  const [loading, setLoading] = useState(true);
-  const [selectedOption, setSelectedOption] = useState(null);
-  const [isAnswered, setIsAnswered] = useState(false);
-
-  useEffect(() => {
-    let isMounted = true;
-
-    const fetchFlags = async () => {
-      try {
-        const { data, error } = await supabase.from("flags").select("*");
-        if (!isMounted) return;
-
-        if (error) throw error;
-
-        const randomCountry = data[Math.floor(Math.random() * data.length)];
-        setQuestion({
-          country: randomCountry.country,
-          countryUrl: randomCountry.flag_url,
-          options: randomCountry.options.sort(() => Math.random() - 0.5),
-        });
-      } catch (error) {
-        console.error("Ошибка загрузки:", error);
-      } finally {
-        if (isMounted) setLoading(false);
-      }
-    };
-
-    fetchFlags();
-    return () => {
-      isMounted = false;
-    };
-  }, []);
-
-  const handleAnswer = (selected) => {
-    setSelectedOption(selected);
-    setIsAnswered(true);
-  };
+  const {
+    question,
+    loading,
+    selectedOption,
+    isAnswered,
+    answersCounter,
+    handleAnswer,
+  } = useGame();
 
   return (
     <div className={clsx(className, "max-w-lg mx-auto px-4 py-8")}>
-      <h1 className="text-3xl font-bold text-center mb-8">guess dis flag</h1>
-
+      <div className="flex flex-col items-center">
+        <h1 className="text-3xl font-bold text-center mb-8">guess dis flag</h1>
+        <div>
+          right answers: {answersCounter.rightAnswers}/
+          {answersCounter.overallAnswers}
+        </div>
+      </div>
       <div className="min-h-[400px] flex flex-col items-center justify-center">
         {loading ? (
           <div className="text-gray-500">loading flag...</div>
