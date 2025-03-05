@@ -25,7 +25,7 @@ export function Header() {
           </div>
         </nav>
         <button className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors">
-          <span>Профиль</span>
+          <span>Profile</span>
           <img src={avatar} className="w-8 h-8 rounded-full object-cover"></img>
         </button>
       </div>
