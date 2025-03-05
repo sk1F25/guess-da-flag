@@ -16,6 +16,7 @@ export function useGame() {
     rightAnswers: 0,
     overallAnswers: 0,
   });
+  const [isGameOver, setIsGameOver] = useState(false);
 
   const loadQuestion = (flags, index) => {
     const randomCountry = flags[index];
@@ -52,6 +53,7 @@ export function useGame() {
   }, []);
 
   const handleAnswer = (selected) => {
+    if (isGameOver) return;
     setSelectedOption(selected);
     setIsAnswered(true);
 
@@ -67,6 +69,7 @@ export function useGame() {
 
       const nextIndex = currentQuestionIndex + 1;
       if (nextIndex >= flags.length) {
+        setIsGameOver(true);
         setTimeout(() => {
           alert(
             `Игра завершена! Правильных ответов: ${newCounter.rightAnswers} из ${newCounter.overallAnswers}`
@@ -96,5 +99,6 @@ export function useGame() {
     isAnswered,
     answersCounter,
     handleAnswer,
+    isGameOver,
   };
 }

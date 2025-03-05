@@ -9,6 +9,7 @@ export function Game({ className }) {
     isAnswered,
     answersCounter,
     handleAnswer,
+    isGameOver,
   } = useGame();
 
   return (
@@ -42,6 +43,7 @@ export function Game({ className }) {
                   isSelected={selectedOption === option}
                   isCorrect={option === question.country}
                   isAnswered={isAnswered}
+                  isGameOver={isGameOver}
                 />
               ))}
             </div>
@@ -52,11 +54,18 @@ export function Game({ className }) {
   );
 }
 
-function OptionButton({ option, onClick, isSelected, isCorrect, isAnswered }) {
+function OptionButton({
+  option,
+  onClick,
+  isSelected,
+  isCorrect,
+  isAnswered,
+  isGameOver,
+}) {
   return (
     <button
       onClick={() => onClick(option)}
-      disabled={isAnswered}
+      disabled={isAnswered || isGameOver}
       className={clsx(
         "px-6 py-3 rounded-lg transition-colors duration-200",
         "font-medium border-2 disabled:opacity-75",
