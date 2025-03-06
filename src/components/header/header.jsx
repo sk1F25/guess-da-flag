@@ -44,23 +44,18 @@ export function Header() {
               </Link>
             </div>
           </nav>
-          {user ? (
-            <button
-              onClick={signOut}
-              className="text-gray-300 hover:text-white"
-            >
-              Выйти
-            </button>
-          ) : (
-            <button
-              onClick={signOut}
-              className="text-gray-300 hover:text-white"
-            >
+          <button
+            onClick={user ? signOut : null}
+            className="bg-blue-500 rounded hover:bg-blue-700 font-bold py-2 px-4 w-[90px] h-[44px] flex items-center justify-center"
+          >
+            {user ? (
+              "Выйти"
+            ) : (
               <Link to="/auth" className="text-gray-300 hover:text-white">
                 Войти
-              </Link>{" "}
-            </button>
-          )}
+              </Link>
+            )}
+          </button>
         </div>
       </div>
     </header>
