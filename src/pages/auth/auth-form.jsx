@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useAuthStore } from "../../store/auth-store";
 
-export function AuthForm() {
+export function Auth() {
   const [isLogin, setIsLogin] = useState(true);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");

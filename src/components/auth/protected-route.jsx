@@ -6,7 +6,11 @@ export function ProtectedRoute({ children }) {
   const { user, isLoading } = useAuthStore();
 
   if (isLoading) {
-    return <LoadSpinner />;
+    return (
+      <div className="flex flex-col items-center justify-center pt-40">
+        <LoadSpinner />
+      </div>
+    );
   }
 
   if (!user) {

@@ -4,7 +4,7 @@ import { Header } from "./components/header/header";
 import { Home } from "./pages/home/home";
 import { Game } from "./pages/game/game";
 import { Leaderboard } from "./pages/leaderboard/leaderboard";
-import { AuthForm } from "./components/auth/auth-form";
+import { Auth } from "./pages/auth/auth-form";
 import { ProtectedRoute } from "./components/auth/protected-route";
 import { useAuthStore } from "./store/auth-store";
 
@@ -21,7 +21,7 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/auth" element={<AuthForm />} />
+          <Route path="/auth" element={<Auth />} />
           <Route
             path="/game"
             element={

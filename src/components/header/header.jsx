@@ -52,9 +52,14 @@ export function Header() {
               Выйти
             </button>
           ) : (
-            <Link to="/auth" className="text-gray-300 hover:text-white">
-              Войти
-            </Link>
+            <button
+              onClick={signOut}
+              className="text-gray-300 hover:text-white"
+            >
+              <Link to="/auth" className="text-gray-300 hover:text-white">
+                Войти
+              </Link>{" "}
+            </button>
           )}
         </div>
       </div>
