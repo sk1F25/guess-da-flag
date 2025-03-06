@@ -21,7 +21,7 @@ export function Game({ className }) {
     return () => {
       resetGame();
     };
-  }, []);
+  }, [resetGame]);
 
   useEffect(() => {
     if (isGameOver) {
@@ -31,7 +31,7 @@ export function Game({ className }) {
         );
       }, 1000);
     }
-  }, [isGameOver]);
+  }, [isGameOver, score]);
 
   const handleGameStart = () => {
     resetGame();

@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
-import avatar from "./avatar.jpg";
 import { useState } from "react";
 import { MenuButton } from "../ui/menu-button";
+import { useAuthStore } from "../../store/auth-store";
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user, signOut } = useAuthStore();
 
   return (
     <header className="w-full py-4 bg-gray-900 shadow-md">
@@ -43,14 +44,18 @@ export function Header() {
               </Link>
             </div>
           </nav>
-          <button className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors">
-            <span>Profile</span>
-            <img
-              src={avatar}
-              className="w-8 h-8 rounded-full object-cover"
-              alt="Profile"
-            ></img>
-          </button>
+          {user ? (
+            <button
+              onClick={signOut}
+              className="text-gray-300 hover:text-white"
+            >
+              Выйти
+            </button>
+          ) : (
+            <Link to="/auth" className="text-gray-300 hover:text-white">
+              Войти
+            </Link>
+          )}
         </div>
       </div>
     </header>
