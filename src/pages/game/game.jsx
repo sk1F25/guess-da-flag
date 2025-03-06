@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import { useGame } from "../../hooks/useGame";
 import { useState } from "react";
+import { LoadSpinner } from "../../components/ui/load-spinner";
 
 export function Game({ className }) {
   const {
@@ -26,7 +27,7 @@ export function Game({ className }) {
       <div className="min-h-[400px] flex flex-col items-center justify-center">
         {gameStarted ? (
           loading ? (
-            <div className="text-gray-500">loading flag...</div>
+            <LoadSpinner />
           ) : (
             <>
               <div className="mb-8 w-64 h-48 flex items-center justify-center rounded-lg p-4">
