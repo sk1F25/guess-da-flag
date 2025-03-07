@@ -3,9 +3,9 @@ export function Table({ entries = [], className = "" }) {
     <div className="flex flex-col">
       <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-          <div className="overflow-hidden">
+          <div className="overflow-hidden sm:rounded-lg">
             <table
-              className={`min-w-full text-center text-sm font-light ${className}`}
+              className={`min-w-full text-center text-sm font-light responsive-table ${className}`}
             >
               <TableHead>
                 <TableRow>
@@ -19,11 +19,13 @@ export function Table({ entries = [], className = "" }) {
               <TableBody>
                 {entries.map((entry) => (
                   <TableRow key={entry.place}>
-                    <TableCell className="font-medium">{entry.place}</TableCell>
-                    <TableCell>{entry.player}</TableCell>
-                    <TableCell>{entry.score}</TableCell>
-                    <TableCell>{entry.percent}%</TableCell>
-                    <TableCell>{entry.time}</TableCell>
+                    <TableCell dataHeader="place" className="font-medium">
+                      {entry.place}
+                    </TableCell>
+                    <TableCell dataHeader="player">{entry.player}</TableCell>
+                    <TableCell dataHeader="score">{entry.score}</TableCell>
+                    <TableCell dataHeader="percent">{entry.percent}%</TableCell>
+                    <TableCell dataHeader="time">{entry.time}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -39,8 +41,8 @@ function TableBody({ children, className = "" }) {
   return <tbody className={className}>{children}</tbody>;
 }
 
-function TableCell({ children, isHeader = false, className = "" }) {
-  const baseClasses = "whitespace-nowrap px-6 py-4";
+function TableCell({ children, isHeader = false, className = "", dataHeader }) {
+  const baseClasses = "whitespace-nowrap px-4 py-2 sm:px-6 sm:py-4";
 
   if (isHeader) {
     return (
@@ -50,7 +52,11 @@ function TableCell({ children, isHeader = false, className = "" }) {
     );
   }
 
-  return <td className={`${baseClasses} ${className}`}>{children}</td>;
+  return (
+    <td className={`${baseClasses} ${className}`} data-header={dataHeader}>
+      {children}
+    </td>
+  );
 }
 
 function TableHead({ children, className = "" }) {

@@ -101,6 +101,7 @@ export function Game({ className }) {
           </button>
         )}
       </div>
+
       <GameResult isGameStarted={gameStarted} isGameOver={isGameOver} />
     </div>
   );

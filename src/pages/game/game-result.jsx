@@ -2,6 +2,7 @@ import { useGameStore } from "../../store/store";
 import { useLeaderboardStore } from "../../store/leaderboard-store";
 import { clsx } from "clsx";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export function GameResult({ isGameStarted, isGameOver }) {
   const { correctAnswers, incorrectAnswers, score, resetGame, seconds } =
@@ -12,6 +13,8 @@ export function GameResult({ isGameStarted, isGameOver }) {
   const minutesStr = String(Math.floor(seconds / 60)).padStart(2, "0");
   const secondsStr = String(seconds % 60).padStart(2, "0");
   const formattedTime = `${minutesStr}:${secondsStr}`;
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (isGameOver) {
@@ -47,10 +50,10 @@ export function GameResult({ isGameStarted, isGameOver }) {
         <div className="flex justify-center flex-col items-center mb-10">
           <div className="mt-10">
             <div>
-              Правильных ответов: {score.correct}/{score.total}
+              Correct answers: {score.correct}/{score.total}
             </div>
-            <div>Время: {formattedTime}</div>
-            <div>Ваш результат лучше, чем у {percentile}% игроков!</div>
+            <div>Time: {formattedTime}</div>
+            <div>Your result is better than {percentile}% players have!</div>
           </div>
           <button
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-5"
@@ -58,6 +61,7 @@ export function GameResult({ isGameStarted, isGameOver }) {
           >
             Restart Game
           </button>
+          <button onClick={() => navigate("/leaderboard")}>Leaderboard</button>
         </div>
       )}
       {isGameStarted ? (
