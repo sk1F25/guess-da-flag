@@ -19,10 +19,15 @@ const initialGameState = {
   },
   isGameOver: false,
   isAnswered: false,
+  seconds: 0,
 };
 
 export const useGameStore = create((set, get) => ({
   ...initialGameState,
+
+  setSeconds: (value) => {
+    set({ seconds: value });
+  },
 
   // Действия
   initializeGame: async () => {
@@ -75,7 +80,7 @@ export const useGameStore = create((set, get) => ({
   },
 
   resetGame: () => {
-    set(initialGameState);
+    set({ ...initialGameState });
     get().initializeGame();
   },
 }));

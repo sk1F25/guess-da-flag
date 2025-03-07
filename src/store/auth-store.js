@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { supabase } from "../api/supabase";
 
-const AUTH_TIMEOUT = 1000 * 60 * 60; // 1 час
+const AUTH_TIMEOUT = 1000 * 60 * 60;
 
 const getStorageItem = (key) => {
   try {

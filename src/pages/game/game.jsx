@@ -13,6 +13,8 @@ export function Game({ className }) {
     submitAnswer,
     isGameOver,
     resetGame,
+    seconds,
+    setSeconds,
   } = useGameStore();
 
   const [gameStarted, setGameStarted] = useState(false);
@@ -38,6 +40,20 @@ export function Game({ className }) {
     setGameStarted(true);
   };
 
+  const minutesStr = String(Math.floor(seconds / 60)).padStart(2, "0");
+  const secondsStr = String(seconds % 60).padStart(2, "0");
+  const formattedTime = `${minutesStr}:${secondsStr}`;
+
+  useEffect(() => {
+    if (gameStarted) {
+      const interval = setInterval(() => {
+        setSeconds(seconds + 1);
+      }, 1000);
+
+      return () => clearInterval(interval);
+    }
+  }, [gameStarted, seconds, setSeconds]);
+
   return (
     <div className={clsx(className, "max-w-lg mx-auto px-4 py-8")}>
       <div className="flex flex-col items-center">
@@ -45,6 +61,7 @@ export function Game({ className }) {
         <div>
           right answers: {score.correct}/{score.total}
         </div>
+        <div>Time: {formattedTime}</div>
       </div>
       <div className="min-h-[400px] flex flex-col items-center justify-center">
         {gameStarted ? (
