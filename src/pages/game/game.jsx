@@ -29,7 +29,8 @@ export function Game({ className }) {
     if (isGameOver) {
       setTimeout(() => {
         alert(
-          `Игра завершена! Правильных ответов: ${score.correct} из ${score.total}`
+          `Игра завершена! Правильных ответов: ${score.correct} из ${score.total}
+          Время: ${formattedTime}`
         );
       }, 1000);
     }
@@ -45,14 +46,14 @@ export function Game({ className }) {
   const formattedTime = `${minutesStr}:${secondsStr}`;
 
   useEffect(() => {
-    if (gameStarted) {
+    if (gameStarted && !isGameOver) {
       const interval = setInterval(() => {
         setSeconds(seconds + 1);
       }, 1000);
 
       return () => clearInterval(interval);
     }
-  }, [gameStarted, seconds, setSeconds]);
+  }, [gameStarted, seconds, setSeconds, isGameOver]);
 
   return (
     <div className={clsx(className, "max-w-lg mx-auto px-4 py-8")}>

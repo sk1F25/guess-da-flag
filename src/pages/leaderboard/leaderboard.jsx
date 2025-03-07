@@ -1,4 +1,4 @@
-import { Table } from "../../components/ui/table/table";
+import { Table } from "../../components/table/table";
 
 export function Leaderboard() {
   return (
