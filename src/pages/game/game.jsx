@@ -16,6 +16,7 @@ export function Game({ className }) {
     resetGame,
     seconds,
     setSeconds,
+    totalQuestions,
   } = useGameStore();
 
   const [gameStarted, setGameStarted] = useState(false);
@@ -76,7 +77,9 @@ export function Game({ className }) {
   return (
     <div className={clsx(className, "max-w-lg mx-auto px-4 py-8")}>
       <div className="flex flex-col items-center">
-        <h1 className="text-3xl font-bold text-center mb-8">guess dis flag</h1>
+        <h1 className="text-3xl font-bold text-center mb-8">
+          guess dis {totalQuestions} flags
+        </h1>
         <div>
           right answers: {score.correct}/{score.total}
         </div>

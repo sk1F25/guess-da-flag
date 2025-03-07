@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { supabase } from "../api/supabase";
 
 const ANSWER_DELAY = 1000;
+const TOTAL_QUESTIONS = 20;
 
 const initialGameState = {
   flags: [],
@@ -20,6 +21,7 @@ const initialGameState = {
   isGameOver: false,
   isAnswered: false,
   seconds: 0,
+  totalQuestions: TOTAL_QUESTIONS,
 };
 
 export const useGameStore = create((set, get) => ({
@@ -35,7 +37,7 @@ export const useGameStore = create((set, get) => ({
       const { data, error } = await supabase.from("flags").select("*");
       if (error) throw error;
 
-      const shuffledFlags = shuffleArray(data);
+      const shuffledFlags = shuffleArray(data).slice(0, TOTAL_QUESTIONS);
 
       set({
         flags: shuffledFlags,
