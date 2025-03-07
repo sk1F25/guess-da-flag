@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { LoadSpinner } from "../../components/ui/load-spinner";
 import { useGameStore } from "../../store/store";
 import { useLeaderboardStore } from "../../store/leaderboard-store";
+import { GameResult } from "./game-result";
 
 export function Game({ className }) {
   const {
@@ -80,9 +81,6 @@ export function Game({ className }) {
         <h1 className="text-3xl font-bold text-center mb-8">
           guess dis {totalQuestions} flags
         </h1>
-        <div>
-          right answers: {score.correct}/{score.total}
-        </div>
         <div>Time: {formattedTime}</div>
       </div>
       <div className="min-h-[400px] flex flex-col items-center justify-center">
@@ -123,6 +121,7 @@ export function Game({ className }) {
           </button>
         )}
       </div>
+      <GameResult isGameStarted={gameStarted} />
     </div>
   );
 }

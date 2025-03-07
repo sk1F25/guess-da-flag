@@ -22,6 +22,8 @@ const initialGameState = {
   isAnswered: false,
   seconds: 0,
   totalQuestions: TOTAL_QUESTIONS,
+  correctAnswers: [],
+  incorrectAnswers: [],
 };
 
 export const useGameStore = create((set, get) => ({
@@ -61,6 +63,12 @@ export const useGameStore = create((set, get) => ({
         correct: isCorrect ? state.score.correct + 1 : state.score.correct,
         total: state.score.total + 1,
       },
+      correctAnswers: isCorrect
+        ? [...state.correctAnswers, currentQuestion.country]
+        : state.correctAnswers,
+      incorrectAnswers: !isCorrect
+        ? [...state.incorrectAnswers, currentQuestion.country]
+        : state.incorrectAnswers,
     }));
 
     setTimeout(() => {
