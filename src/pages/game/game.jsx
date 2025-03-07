@@ -36,27 +36,7 @@ export function Game({ className }) {
 
   useEffect(() => {
     if (isGameOver) {
-      const showResults = async () => {
-        const currentComposite = (score.correct * 1000) / (seconds + 1);
-        const allScores = await useLeaderboardStore.getState().fetchAllScores();
-        const allResults = [...allScores, currentComposite];
-        const sorted = [...allResults].sort((a, b) => b - a);
-        const position = sorted.findIndex((s) => s === currentComposite);
-        const percentile = Math.round(
-          ((allResults.length - position) / allResults.length) * 100
-        );
-        saveScore(score.correct, score.total, seconds);
-
-        setTimeout(() => {
-          alert(`
-            Правильных ответов: ${score.correct}/${score.total}
-            Время: ${formattedTime}
-            Ваш результат лучше, чем у ${percentile}% игроков!
-          `);
-        }, 1000);
-      };
-
-      showResults();
+      saveScore(score.correct, score.total, seconds);
     }
   }, [isGameOver, score, seconds, formattedTime, saveScore]);
 
@@ -121,7 +101,7 @@ export function Game({ className }) {
           </button>
         )}
       </div>
-      <GameResult isGameStarted={gameStarted} />
+      <GameResult isGameStarted={gameStarted} isGameOver={isGameOver} />
     </div>
   );
 }
