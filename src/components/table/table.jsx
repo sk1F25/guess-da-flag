@@ -1,4 +1,4 @@
-export function Table({ className = "" }) {
+export function Table({ entries = [], className = "" }) {
   return (
     <div className="flex flex-col">
       <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -17,20 +17,15 @@ export function Table({ className = "" }) {
                 </TableRow>
               </TableHead>
               <TableBody>
-                <TableRow>
-                  <TableCell className="font-medium">1</TableCell>
-                  <TableCell>sk1F25</TableCell>
-                  <TableCell>18/20</TableCell>
-                  <TableCell>90%</TableCell>
-                  <TableCell>1m 30s</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell className="font-medium">2</TableCell>
-                  <TableCell>sk1F26</TableCell>
-                  <TableCell>16/20</TableCell>
-                  <TableCell>80%</TableCell>
-                  <TableCell>2m 10s</TableCell>
-                </TableRow>
+                {entries.map((entry) => (
+                  <TableRow key={entry.place}>
+                    <TableCell className="font-medium">{entry.place}</TableCell>
+                    <TableCell>{entry.player}</TableCell>
+                    <TableCell>{entry.score}</TableCell>
+                    <TableCell>{entry.percent}%</TableCell>
+                    <TableCell>{entry.time}</TableCell>
+                  </TableRow>
+                ))}
               </TableBody>
             </table>
           </div>

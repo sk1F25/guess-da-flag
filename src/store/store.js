@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { supabase } from "../api/supabase";
 
-const ANSWER_DELAY = 200;
+const ANSWER_DELAY = 1000;
 
 const initialGameState = {
   flags: [],

@@ -2,6 +2,7 @@ import clsx from "clsx";
 import { useState, useEffect } from "react";
 import { LoadSpinner } from "../../components/ui/load-spinner";
 import { useGameStore } from "../../store/store";
+import { useLeaderboardStore } from "../../store/leaderboard-store";
 
 export function Game({ className }) {
   const {
@@ -19,31 +20,48 @@ export function Game({ className }) {
 
   const [gameStarted, setGameStarted] = useState(false);
 
+  const { saveScore } = useLeaderboardStore();
+
   useEffect(() => {
     return () => {
       resetGame();
     };
   }, [resetGame]);
 
+  const minutesStr = String(Math.floor(seconds / 60)).padStart(2, "0");
+  const secondsStr = String(seconds % 60).padStart(2, "0");
+  const formattedTime = `${minutesStr}:${secondsStr}`;
+
   useEffect(() => {
     if (isGameOver) {
-      setTimeout(() => {
-        alert(
-          `Игра завершена! Правильных ответов: ${score.correct} из ${score.total}
-          Время: ${formattedTime}`
+      const showResults = async () => {
+        const currentComposite = (score.correct * 1000) / (seconds + 1);
+        const allScores = await useLeaderboardStore.getState().fetchAllScores();
+        const allResults = [...allScores, currentComposite];
+        const sorted = [...allResults].sort((a, b) => b - a);
+        const position = sorted.findIndex((s) => s === currentComposite);
+        const percentile = Math.round(
+          ((allResults.length - position) / allResults.length) * 100
         );
-      }, 1000);
+        saveScore(score.correct, score.total, seconds);
+
+        setTimeout(() => {
+          alert(`
+            Правильных ответов: ${score.correct}/${score.total}
+            Время: ${formattedTime}
+            Ваш результат лучше, чем у ${percentile}% игроков!
+          `);
+        }, 1000);
+      };
+
+      showResults();
     }
-  }, [isGameOver, score]);
+  }, [isGameOver, score, seconds, formattedTime, saveScore]);
 
   const handleGameStart = () => {
     resetGame();
     setGameStarted(true);
   };
-
-  const minutesStr = String(Math.floor(seconds / 60)).padStart(2, "0");
-  const secondsStr = String(seconds % 60).padStart(2, "0");
-  const formattedTime = `${minutesStr}:${secondsStr}`;
 
   useEffect(() => {
     if (gameStarted && !isGameOver) {
