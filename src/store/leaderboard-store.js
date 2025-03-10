@@ -2,10 +2,9 @@ import { create } from "zustand";
 import { supabase } from "../api/supabase";
 import { useAuthStore } from "./auth-store";
 
-export const useLeaderboardStore = create((set, get) => ({
+export const useLeaderboardStore = create((set) => ({
   entries: [],
   isLoading: false,
-  averageComposite: null, // Кэш среднего значения
   lastUpdated: null,
 
   fetchingLeaderboard: async () => {
@@ -19,7 +18,8 @@ export const useLeaderboardStore = create((set, get) => ({
                 users (username)
             `
         )
-        .order("composite_score", { ascending: false })
+        .order("score", { ascending: false })
+        .order("time_seconds", { ascending: true })
         .limit(10);
       if (error) throw error;
 
@@ -29,6 +29,8 @@ export const useLeaderboardStore = create((set, get) => ({
         score: `${entry.score}/${entry.total_questions}`,
         percent: Math.round((entry.score / entry.total_questions) * 100),
         time: formatTime(entry.time_seconds),
+        rawScore: entry.score,
+        rawTime: entry.time_seconds,
       }));
       set({ entries: formattedData });
     } catch (error) {
@@ -60,26 +62,16 @@ export const useLeaderboardStore = create((set, get) => ({
     try {
       const { data } = await supabase
         .from("leaderboard")
-        .select("composite_score");
+        .select("score, time_seconds");
 
-      return data.map((entry) => entry.composite_score);
+      return data.map((entry) => ({
+        score: entry.score,
+        time: entry.time_seconds,
+      }));
     } catch (error) {
       console.error("Ошибка загрузки scores:", error);
       return [];
     }
-  },
-  updateAverage: async () => {
-    const { lastUpdated } = get();
-    if (lastUpdated && Date.now() - lastUpdated < 3600000) return;
-
-    const scores = await get().fetchAllScores();
-    const average =
-      scores.length > 0 ? scores.reduce((a, b) => a + b, 0) / scores.length : 0;
-
-    set({
-      averageComposite: average,
-      lastUpdated: Date.now(),
-    });
   },
 }));
 

@@ -4,18 +4,11 @@ import { useLeaderboardStore } from "../../store/leaderboard-store";
 import { LoadSpinner } from "../../components/ui/load-spinner";
 
 export function Leaderboard() {
-  const { entries, isLoading, fetchingLeaderboard, updateAverage } =
-    useLeaderboardStore();
+  const { entries, isLoading, fetchingLeaderboard } = useLeaderboardStore();
 
   useEffect(() => {
     fetchingLeaderboard();
   }, [fetchingLeaderboard]);
-
-  useEffect(() => {
-    if (!isLoading && entries.length > 0) {
-      updateAverage();
-    }
-  }, [isLoading, entries, updateAverage]);
 
   return (
     <>

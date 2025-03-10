@@ -19,14 +19,28 @@ export function GameResult({ isGameStarted, isGameOver }) {
   useEffect(() => {
     if (isGameOver) {
       const calculateResults = async () => {
-        const currentComposite = (score.correct * 1000) / (seconds + 1);
+        const currentScore = score.correct;
+        const currentTime = seconds;
+
         const allScores = await useLeaderboardStore.getState().fetchAllScores();
-        const allResults = [...allScores, currentComposite];
-        const sorted = [...allResults].sort((a, b) => b - a);
-        const position = sorted.findIndex((s) => s === currentComposite);
+
+        const sortedScores = [
+          ...allScores,
+          { score: currentScore, time: currentTime },
+        ].sort((a, b) => {
+          if (b.score !== a.score) {
+            return b.score - a.score;
+          }
+          return a.time - b.time;
+        });
+
+        const position = sortedScores.findIndex(
+          (s) => s.score === currentScore && s.time === currentTime
+        );
+
         setPercentile(() => {
           return Math.round(
-            ((allResults.length - position) / allResults.length) * 100
+            ((sortedScores.length - position) / sortedScores.length) * 100
           );
         });
         saveScore(score.correct, score.total, seconds);
