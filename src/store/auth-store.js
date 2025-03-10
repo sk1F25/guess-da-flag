@@ -93,6 +93,43 @@ export const useAuthStore = create((set) => {
       }
     },
 
+    signUp: async (username, password) => {
+      try {
+        const { data: existingUser } = await supabase
+          .from("users")
+          .select("*")
+          .eq("username", username)
+          .single();
+
+        if (existingUser) {
+          return {
+            success: false,
+            error: "Пользователь с таким именем уже существует",
+          };
+        }
+
+        const { data, error } = await supabase
+          .from("users")
+          .insert({ username, password })
+          .select()
+          .single();
+
+        if (error) throw error;
+        if (!data) throw new Error("Не удалось создать пользователя");
+
+        setStorageItem("userId", data.id);
+        setStorageItem("lastAuthCheck", Date.now());
+        setStorageItem("cachedUser", data);
+        set({ user: data });
+        return { success: true };
+      } catch (error) {
+        return {
+          success: false,
+          error: error.message,
+        };
+      }
+    },
+
     signOut: () => {
       localStorage.removeItem("userId");
       localStorage.removeItem("lastAuthCheck");
