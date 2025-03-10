@@ -34,15 +34,7 @@ export function GameResult({ isGameStarted, isGameOver }) {
 
       calculateResults();
     }
-  }, [
-    isGameOver,
-    score,
-    seconds,
-    formattedTime,
-    saveScore,
-    percentile,
-    setPercentile,
-  ]);
+  }, [isGameOver, score, seconds, saveScore]);
 
   return (
     <>

@@ -70,7 +70,6 @@ export const useLeaderboardStore = create((set, get) => ({
   },
   updateAverage: async () => {
     const { lastUpdated } = get();
-    // Обновляем кэш раз в час
     if (lastUpdated && Date.now() - lastUpdated < 3600000) return;
 
     const scores = await get().fetchAllScores();

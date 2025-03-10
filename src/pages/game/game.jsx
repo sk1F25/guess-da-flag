@@ -2,7 +2,6 @@ import clsx from "clsx";
 import { useState, useEffect } from "react";
 import { LoadSpinner } from "../../components/ui/load-spinner";
 import { useGameStore } from "../../store/store";
-import { useLeaderboardStore } from "../../store/leaderboard-store";
 import { GameResult } from "./game-result";
 
 export function Game({ className }) {
@@ -11,7 +10,6 @@ export function Game({ className }) {
     isLoading,
     selectedOption,
     isAnswered,
-    score,
     submitAnswer,
     isGameOver,
     resetGame,
@@ -22,8 +20,6 @@ export function Game({ className }) {
 
   const [gameStarted, setGameStarted] = useState(false);
 
-  const { saveScore } = useLeaderboardStore();
-
   useEffect(() => {
     return () => {
       resetGame();
@@ -33,12 +29,6 @@ export function Game({ className }) {
   const minutesStr = String(Math.floor(seconds / 60)).padStart(2, "0");
   const secondsStr = String(seconds % 60).padStart(2, "0");
   const formattedTime = `${minutesStr}:${secondsStr}`;
-
-  useEffect(() => {
-    if (isGameOver) {
-      saveScore(score.correct, score.total, seconds);
-    }
-  }, [isGameOver, score, seconds, formattedTime, saveScore]);
 
   const handleGameStart = () => {
     resetGame();
