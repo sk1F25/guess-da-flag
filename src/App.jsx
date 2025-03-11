@@ -7,6 +7,7 @@ import { Leaderboard } from "./pages/leaderboard/leaderboard";
 import { Auth } from "./pages/auth/auth-form";
 import { ProtectedRoute } from "./components/auth/protected-route";
 import { useAuthStore } from "./store/auth-store";
+import { Profile } from "./pages/profile/profile";
 
 function App() {
   const initAuth = useAuthStore((state) => state.initAuth);
@@ -35,6 +36,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <Leaderboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <Profile />
               </ProtectedRoute>
             }
           />

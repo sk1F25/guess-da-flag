@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { LoadSpinner } from "../../components/ui/load-spinner";
 import { useGameStore } from "../../store/store";
 import { GameResult } from "./game-result";
+import { formatTime } from "../../utils/format-time";
 
 export function Game({ className }) {
   const {
@@ -22,13 +23,11 @@ export function Game({ className }) {
 
   useEffect(() => {
     return () => {
-      resetGame();
+      resetGame(); // ресетит игру при анмаунте компонента
     };
   }, [resetGame]);
 
-  const minutesStr = String(Math.floor(seconds / 60)).padStart(2, "0");
-  const secondsStr = String(seconds % 60).padStart(2, "0");
-  const formattedTime = `${minutesStr}:${secondsStr}`;
+  const formattedTime = formatTime(seconds);
 
   const handleGameStart = () => {
     resetGame();

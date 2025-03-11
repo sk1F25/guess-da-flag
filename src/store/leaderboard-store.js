@@ -28,7 +28,7 @@ export const useLeaderboardStore = create((set) => ({
         player: entry.users.username,
         score: `${entry.score}/${entry.total_questions}`,
         percent: Math.round((entry.score / entry.total_questions) * 100),
-        time: formatTime(entry.time_seconds),
+        time: formatTimeForLeaderboard(entry.time_seconds),
         rawScore: entry.score,
         rawTime: entry.time_seconds,
       }));
@@ -75,7 +75,7 @@ export const useLeaderboardStore = create((set) => ({
   },
 }));
 
-function formatTime(seconds) {
+function formatTimeForLeaderboard(seconds) {
   const minutes = Math.floor(seconds / 60);
   const remainingSeconds = seconds % 60;
   return `${minutes}m ${remainingSeconds}s`;

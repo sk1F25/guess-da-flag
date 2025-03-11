@@ -1,54 +1,13 @@
 import { useGameStore } from "../../store/store";
-import { useLeaderboardStore } from "../../store/leaderboard-store";
 import { clsx } from "clsx";
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useGameResult } from "../../hooks/useGameResult";
 
 export function GameResult({ isGameStarted, isGameOver }) {
-  const { correctAnswers, incorrectAnswers, score, resetGame, seconds } =
-    useGameStore();
-  const { saveScore } = useLeaderboardStore();
-  const [percentile, setPercentile] = useState(0);
-
-  const minutesStr = String(Math.floor(seconds / 60)).padStart(2, "0");
-  const secondsStr = String(seconds % 60).padStart(2, "0");
-  const formattedTime = `${minutesStr}:${secondsStr}`;
+  const { correctAnswers, incorrectAnswers, score, resetGame } = useGameStore();
+  const { percentile, formattedTime } = useGameResult(isGameOver);
 
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (isGameOver) {
-      const calculateResults = async () => {
-        const currentScore = score.correct;
-        const currentTime = seconds;
-
-        const allScores = await useLeaderboardStore.getState().fetchAllScores();
-
-        const sortedScores = [
-          ...allScores,
-          { score: currentScore, time: currentTime },
-        ].sort((a, b) => {
-          if (b.score !== a.score) {
-            return b.score - a.score;
-          }
-          return a.time - b.time;
-        });
-
-        const position = sortedScores.findIndex(
-          (s) => s.score === currentScore && s.time === currentTime
-        );
-
-        setPercentile(() => {
-          return Math.round(
-            ((sortedScores.length - position) / sortedScores.length) * 100
-          );
-        });
-        saveScore(score.correct, score.total, seconds);
-      };
-
-      calculateResults();
-    }
-  }, [isGameOver, score, seconds, saveScore]);
 
   return (
     <>
