@@ -4,6 +4,7 @@ import { LoadSpinner } from "../../components/ui/load-spinner";
 import { useGameStore } from "../../store/store";
 import { GameResult } from "./game-result";
 import { formatTime } from "../../utils/format-time";
+import { OptionButton } from "./option-button";
 
 export function Game({ className }) {
   const {
@@ -67,10 +68,12 @@ export function Game({ className }) {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-md">
-                {currentQuestion.options.map((option) => (
+                {currentQuestion.options.map((option, index) => (
                   <OptionButton
                     key={option}
                     option={option}
+                    options={currentQuestion.options}
+                    index={index}
                     onClick={submitAnswer}
                     isSelected={selectedOption === option}
                     isCorrect={option === currentQuestion.country}
@@ -93,31 +96,5 @@ export function Game({ className }) {
 
       <GameResult isGameStarted={gameStarted} isGameOver={isGameOver} />
     </div>
-  );
-}
-
-function OptionButton({
-  option,
-  onClick,
-  isSelected,
-  isCorrect,
-  isAnswered,
-  isGameOver,
-}) {
-  return (
-    <button
-      onClick={() => onClick(option)}
-      disabled={isAnswered || isGameOver}
-      className={clsx(
-        "px-6 py-3 rounded-lg transition-colors duration-200",
-        "font-medium border-2 disabled:opacity-75",
-        {
-          "border-green-500": isAnswered && isCorrect,
-          "border-red-500": isAnswered && isSelected && !isCorrect,
-        }
-      )}
-    >
-      {option}
-    </button>
   );
 }
