@@ -12,19 +12,26 @@ export function Table({ entries = [], className = "" }) {
                   <TableCell isHeader>place</TableCell>
                   <TableCell isHeader>player</TableCell>
                   <TableCell isHeader>score</TableCell>
-                  <TableCell isHeader>percent</TableCell>
+                  <TableCell isHeader className="hidden sm:table-cell">
+                    percent
+                  </TableCell>
                   <TableCell isHeader>time</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {entries.map((entry) => (
-                  <TableRow key={entry.place}>
+                  <TableRow key={entry.place} className="overflow-hidden">
                     <TableCell dataHeader="place" className="font-medium">
                       {entry.place}
                     </TableCell>
                     <TableCell dataHeader="player">{entry.player}</TableCell>
                     <TableCell dataHeader="score">{entry.score}</TableCell>
-                    <TableCell dataHeader="percent">{entry.percent}%</TableCell>
+                    <TableCell
+                      dataHeader="percent"
+                      className="hidden sm:table-cell"
+                    >
+                      {entry.percent}%
+                    </TableCell>
                     <TableCell dataHeader="time">{entry.time}</TableCell>
                   </TableRow>
                 ))}
@@ -42,7 +49,7 @@ function TableBody({ children, className = "" }) {
 }
 
 function TableCell({ children, isHeader = false, className = "", dataHeader }) {
-  const baseClasses = "whitespace-nowrap px-4 py-2 sm:px-6 sm:py-4";
+  const baseClasses = "whitespace-nowrap px-4 py-2 sm:px-6 sm:py-4 truncate";
 
   if (isHeader) {
     return (
@@ -54,7 +61,9 @@ function TableCell({ children, isHeader = false, className = "", dataHeader }) {
 
   return (
     <td className={`${baseClasses} ${className}`} data-header={dataHeader}>
-      {children}
+      <div className="max-w-[120px] overflow-hidden text-ellipsis truncate">
+        {children}
+      </div>
     </td>
   );
 }
@@ -62,7 +71,8 @@ function TableCell({ children, isHeader = false, className = "", dataHeader }) {
 function TableHead({ children, className = "" }) {
   return (
     <thead
-      className={`border-b bg-neutral-800 font-medium text-white dark:border-neutral-500 dark:bg-neutral-900 ${className}`}
+      className={`border-b bg-neutral-800 font-medium 
+        text-white dark:border-neutral-500 dark:bg-neutral-900 ${className}`}
     >
       {children}
     </thead>
