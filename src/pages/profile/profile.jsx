@@ -39,11 +39,12 @@ export function Profile() {
       <h1 className="text-2xl font-bold mb-8">Профиль</h1>
       <div className="w-full flex flex-col items-center justify-center gap-6">
         <div className="w-full flex flex-col items-center justify-center">
+          <p>Флаг выбранной вами страны станет вашей аватаркой</p>
           <div className="mb-4 w-40 h-28 overflow-hidden rounded-lg ">
             <img
               src={avatarSrc(user)}
               alt="Флаг страны"
-              className="w-full h-full object-contain"
+              className="w-full h-full "
             />
           </div>
           <div className="w-full flex flex-col items-center justify-center">

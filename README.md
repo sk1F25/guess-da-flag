@@ -1,12 +1,45 @@
-# React + Vite
+# 🚩 Guess Da Flag
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Интерактивная браузерная игра-квиз по флагам стран мира.
 
-Currently, two official plugins are available:
+![React](https://img.shields.io/badge/React-19.0.0-blue)
+![Vite](https://img.shields.io/badge/Vite-6.2.0-purple)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4.0.9-teal)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Фичи
 
-## Expanding the ESLint configuration
+- 🔐 Простая аутентификация пользователей
+- 🎮 Игровой режим с выбором флагов
+- 🏆 Таблица лидеров
+- 👤 Профиль пользователя
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🛠️ Технологии
+
+- **Frontend**: React, React Router
+- **Стилизация**: TailwindCSS
+- **Управление состоянием**: Zustand
+- **Backend**: Supabase
+- **Сборка**: Vite
+- **Деплой**: Vercel
+- **API Флагов**: flagcdn
+
+## 🚀 Установка и запуск
+
+```bash
+# Клонирование репозитория
+git clone https://github.com/sk1F25/guess-da-flag.git
+cd guessdaflag
+
+# Установка зависимостей
+npm install
+
+# Запуск в режиме разработки
+npm run dev
+
+# Сборка для продакшена
+npm run build
+```
+
+## 📱 Демо
+
+Проект доступен по адресу: [guessdaflag.vercel.app](https://guess-da-flag.vercel.app/)
