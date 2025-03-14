@@ -13,11 +13,11 @@ export function Leaderboard() {
   return (
     <>
       {isLoading ? (
-        <div className="flex flex-col items-center justify-center pt-40">
+        <div className="flex flex-col items-center justify-center pt-20">
           <LoadSpinner />
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-center pt-40">
+        <div className="flex flex-col items-center justify-center pt-20">
           <h1 className="text-2xl font-bold mb-6 text-center">Leaderboard</h1>
           <Table entries={entries} />
         </div>

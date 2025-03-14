@@ -46,12 +46,12 @@ export function Game({ className }) {
   }, [gameStarted, seconds, setSeconds, isGameOver]);
 
   return (
-    <div className={clsx(className, "max-w-lg mx-auto px-4 py-8")}>
+    <div className={clsx(className, "max-w-lg mx-auto px-4 py-8 ")}>
       <div className="flex flex-col items-center">
         <h1 className="text-3xl font-bold text-center mb-8">
-          guess dis {totalQuestions} flags
+          Угадай эти {totalQuestions} флагов
         </h1>
-        <div>Time: {formattedTime}</div>
+        <div>Время: {formattedTime}</div>
       </div>
       <div className="min-h-[400px] flex flex-col items-center justify-center">
         {gameStarted ? (
@@ -89,7 +89,7 @@ export function Game({ className }) {
             onClick={handleGameStart}
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           >
-            start game
+            Начать игру
           </button>
         )}
       </div>

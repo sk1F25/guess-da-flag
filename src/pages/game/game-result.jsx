@@ -15,13 +15,13 @@ export function GameResult({ isGameStarted, isGameOver }) {
         <div className="flex justify-center flex-col items-center mb-10">
           <div className="mt-10">
             <div>
-              Correct answers: {score.correct}/{score.total}
+              Правильных ответов: {score.correct}/{score.total}
             </div>
-            <div>Time: {formattedTime}</div>
+            <div>Время: {formattedTime}</div>
             {percentile === 0 ? (
               <div>Loading data...</div>
             ) : (
-              <div>Your result is better than {percentile}% players have!</div>
+              <div>Твой результат лучше чем у {percentile}% игроков!</div>
             )}
           </div>
           <button
@@ -37,10 +37,10 @@ export function GameResult({ isGameStarted, isGameOver }) {
         <div className="flex flex-col justify-center items-center gap-10">
           {!isGameOver && (
             <div>
-              right answers: {score.correct}/{score.total}
+              Правильных ответов: {score.correct}/{score.total}
             </div>
           )}
-          <h2>answers:</h2>
+          <h2>Ответы:</h2>
           <div className="grid grid-cols-2 w-full flex-col">
             <div className="w-full flex justify-start items-start flex-col">
               {correctAnswers.map((country) => {

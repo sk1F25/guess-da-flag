@@ -20,7 +20,6 @@ export function Auth() {
       navigate("/");
     } else {
       alert(result.error);
-      console.log(result.error);
     }
   };
 

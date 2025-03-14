@@ -36,13 +36,13 @@ export function ProfileMenu() {
   return (
     <div className="relative" ref={menuRef}>
       <button
-        className="hidden md:flex items-center gap-4 h-[44px] focus:outline-none"
+        className="hidden md:flex items-center gap-4 h-[54px] w-25 focus:outline-none"
         onClick={toggleMenu}
       >
         <img
           src={avatarSrc(user)}
           alt="аватар пользователя"
-          className="w-10 h-10"
+          className="object-contain w-10 h-10"
         />
         <div className="flex items-center gap-1">
           <span>{user?.username || "Гость"}</span>
@@ -77,11 +77,11 @@ export function ProfileMenu() {
 
       {isOpen && (
         <div className="absolute right-0 mt-2 w-48 bg-gray-800 rounded-md shadow-lg py-1 z-10">
-          <div className="md:hidden flex items-center gap-2 px-4 py-3 border-b border-gray-700">
+          <div className="md:hidden flex flex-col items-center gap-2 px-4 py-3 border-b border-gray-700 ">
             <img
-              src={avatarSrc}
+              src={avatarSrc(user)}
               alt="аватар пользователя"
-              className="w-8 h-8 rounded-full"
+              className="object-contain w-full h-full"
             />
             <span className="font-medium">{user?.username || "Гость"}</span>
           </div>

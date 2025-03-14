@@ -19,13 +19,11 @@ export function Profile() {
   const handleFlagChange = (value) => {
     setSelectedFlag(value);
     setIsEditing(true);
-    console.log("Выбрано:", value);
   };
 
   const handleUsernameChange = (value) => {
     setUsername(value.target.value);
     setIsEditing(true);
-    console.log("Введено:", value);
   };
 
   const handleSave = () => {

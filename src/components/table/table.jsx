@@ -9,13 +9,13 @@ export function Table({ entries = [], className = "" }) {
             >
               <TableHead>
                 <TableRow>
-                  <TableCell isHeader>place</TableCell>
-                  <TableCell isHeader>player</TableCell>
-                  <TableCell isHeader>score</TableCell>
+                  <TableCell isHeader>Place</TableCell>
+                  <TableCell isHeader>Player</TableCell>
+                  <TableCell isHeader>Score</TableCell>
                   <TableCell isHeader className="hidden sm:table-cell">
-                    percent
+                    Percent
                   </TableCell>
-                  <TableCell isHeader>time</TableCell>
+                  <TableCell isHeader>Time</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
