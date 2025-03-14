@@ -1,13 +1,20 @@
 import { useState, useRef, useEffect } from "react";
 import { useAuthStore } from "../../store/auth-store";
-import avatarSrc from "./avatar.jpg";
-import { ArrowDown } from "./icons/arrow-down";
+
+import { ArrowDown } from "../ui/icons/arrow-down";
 import { Link } from "react-router-dom";
+
+const defaultAvatar = "../../../public/avatar.jpg";
 
 export function ProfileMenu() {
   const { user, signOut } = useAuthStore();
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef(null);
+
+  const avatarSrc = (user) =>
+    user.avatar === "default"
+      ? defaultAvatar
+      : `https://flagcdn.com/${user.avatar}.svg`;
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -28,15 +35,14 @@ export function ProfileMenu() {
 
   return (
     <div className="relative" ref={menuRef}>
-      {/* Десктопная версия кнопки */}
       <button
         className="hidden md:flex items-center gap-4 h-[44px] focus:outline-none"
         onClick={toggleMenu}
       >
         <img
-          src={avatarSrc}
+          src={avatarSrc(user)}
           alt="аватар пользователя"
-          className="w-10 h-10 rounded-full"
+          className="w-10 h-10"
         />
         <div className="flex items-center gap-1">
           <span>{user?.username || "Гость"}</span>
@@ -44,7 +50,6 @@ export function ProfileMenu() {
         </div>
       </button>
 
-      {/* Мобильная версия кнопки (гамбургер) */}
       <button className="md:hidden text-white" onClick={toggleMenu}>
         <svg
           className="w-6 h-6"
@@ -72,7 +77,6 @@ export function ProfileMenu() {
 
       {isOpen && (
         <div className="absolute right-0 mt-2 w-48 bg-gray-800 rounded-md shadow-lg py-1 z-10">
-          {/* Заголовок для мобильной версии */}
           <div className="md:hidden flex items-center gap-2 px-4 py-3 border-b border-gray-700">
             <img
               src={avatarSrc}

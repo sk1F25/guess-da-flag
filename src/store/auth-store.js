@@ -19,7 +19,7 @@ const setStorageItem = (key, value) => {
   }
 };
 
-export const useAuthStore = create((set) => {
+export const useAuthStore = create((set, get) => {
   const checkAuthValidity = async (currentUserId) => {
     const now = Date.now();
     const lastCheck = getStorageItem("lastAuthCheck") || 0;
@@ -135,6 +135,37 @@ export const useAuthStore = create((set) => {
       localStorage.removeItem("lastAuthCheck");
       localStorage.removeItem("cachedUser");
       set({ user: null });
+    },
+
+    updateUser: async (userData) => {
+      try {
+        const { user } = get();
+        if (!user) throw new Error("Пользователь не авторизован");
+
+        const { data, error } = await supabase
+          .from("users")
+          .update(userData)
+          .eq("id", user.id)
+          .select()
+          .single();
+
+        if (error) throw error;
+        if (!data) throw new Error("Не удалось обновить данные");
+
+        setStorageItem("cachedUser", data);
+        set({ user: data });
+        return { success: true };
+      } catch (error) {
+        console.error("Ошибка при обновлении данных:", error);
+        return {
+          success: false,
+          error: error.message,
+        };
+      }
+    },
+
+    updateUserAvatar: async (avatarCode) => {
+      return get().updateUser({ avatar: avatarCode });
     },
   };
 });
