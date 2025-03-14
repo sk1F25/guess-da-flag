@@ -2,8 +2,7 @@ import { Select } from "../../components/ui/select";
 import { useState } from "react";
 import { useAuthStore } from "../../store/auth-store";
 import { options } from "./countries";
-
-const defaultAvatar = "../../../public/avatar.jpg";
+import defaultAvatar from "../../assets/avatar.jpg";
 
 export function Profile() {
   const { user, updateUser } = useAuthStore();

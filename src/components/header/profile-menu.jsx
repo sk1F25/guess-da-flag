@@ -1,10 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 import { useAuthStore } from "../../store/auth-store";
-
 import { ArrowDown } from "../ui/icons/arrow-down";
 import { Link } from "react-router-dom";
-
-const defaultAvatar = "../../../public/avatar.jpg";
+import defaultAvatar from "../../assets/avatar.jpg";
 
 export function ProfileMenu() {
   const { user, signOut } = useAuthStore();
