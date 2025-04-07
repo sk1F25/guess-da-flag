@@ -39,7 +39,3 @@ npm run dev
 # Сборка для продакшена
 npm run build
 ```
-
-## 📱 Демо
-
-Проект доступен по адресу: [guessdaflag.vercel.app](https://guess-da-flag.vercel.app/)
